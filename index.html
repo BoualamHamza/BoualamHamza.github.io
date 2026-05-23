@@ -191,6 +191,67 @@
       padding-left: 20px;
       margin-top: 10px;
     }
+
+    /* Spotify embed */
+    #music-section iframe {
+      max-width: 100%;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .container {
+        margin-top: 25px;
+        margin-bottom: 25px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+      }
+
+      .profile-img {
+        max-width: 150px;
+      }
+
+      /* Tighten timeline columns so content keeps room on small screens */
+      .timeline-item {
+        margin-bottom: 30px;
+      }
+
+      .timeline-date {
+        width: 75px;
+        padding-right: 10px;
+        font-size: 0.8rem;
+      }
+
+      .timeline-logo-container {
+        width: 40px;
+        margin-right: 12px;
+      }
+
+      .timeline-logo {
+        width: 40px;
+        height: 40px;
+      }
+
+      #music-section iframe {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .timeline-date {
+        width: 55px;
+        font-size: 0.72rem;
+      }
+
+      .timeline-logo-container {
+        margin-right: 8px;
+      }
+    }
   </style>
 </head>
 
