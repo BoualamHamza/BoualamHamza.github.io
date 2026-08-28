@@ -13,340 +13,117 @@
   <link href="assets/img/apple-touch-icon1.png" rel="icon">
 
   <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i"
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..700;1,400&family=Raleway:wght@400;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
 
-  <!-- Custom CSS -->
-  <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      color: #333;
-      line-height: 1.6;
-      background-color: #fcfcfc;
-    }
-
-    a {
-      color: #0056b3;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: 'Raleway', sans-serif;
-      color: #000;
-    }
-
-    .container {
-      max-width: 960px;
-      margin-top: 50px;
-      margin-bottom: 50px;
-    }
-
-    /* Header Profile */
-    .profile-header {
-      margin-bottom: 40px;
-    }
-
-    .profile-img {
-      max-width: 200px;
-      border-radius: 50%;
-      border: 5px solid #fff;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .social-links a {
-      font-size: 1.5rem;
-      margin-right: 15px;
-      color: #555;
-      transition: color 0.3s;
-    }
-
-    .social-links a:hover {
-      color: #000;
-    }
-
-    /* Sections */
-    section {
-      margin-bottom: 60px;
-    }
-
-    .section-title {
-      border-bottom: 2px solid #eee;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-      font-weight: 700;
-      font-size: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* Items */
-    .item-card {
-      margin-bottom: 25px;
-      background: #fff;
-      padding: 20px;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .item-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .item-date {
-      font-size: 0.9rem;
-      color: #888;
-      min-width: 100px;
-    }
-
-    .project-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-bottom: 15px;
-    }
-
-    /* Loading placeholder */
-    .loading-placeholder {
-      text-align: center;
-      padding: 40px;
-      color: #777;
-    }
-
-    /* Timeline Section */
-    .timeline-item {
-      display: flex;
-      margin-bottom: 40px;
-      position: relative;
-    }
-
-    .timeline-date {
-      width: 120px;
-      flex-shrink: 0;
-      text-align: right;
-      padding-right: 20px;
-      color: #888;
-      font-size: 0.9rem;
-      padding-top: 5px;
-    }
-
-    .timeline-logo-container {
-      width: 60px;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-right: 20px;
-    }
-
-    .timeline-logo {
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
-      border-radius: 8px;
-      /* Optional rounded corners */
-      background: white;
-    }
-
-    /* Vertical line */
-    .timeline-logo-container::after {
-      content: '';
-      width: 2px;
-      background-color: #eee;
-      flex-grow: 1;
-      margin-top: 10px;
-    }
-
-    .timeline-item:last-child .timeline-logo-container::after {
-      display: none;
-    }
-
-    .timeline-content {
-      flex-grow: 1;
-      padding-bottom: 10px;
-    }
-
-    .timeline-content h5 {
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .timeline-content ul {
-      padding-left: 20px;
-      margin-top: 10px;
-    }
-
-    /* Spotify embed */
-    #music-section iframe {
-      max-width: 100%;
-    }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      .container {
-        margin-top: 25px;
-        margin-bottom: 25px;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      .section-title {
-        font-size: 1.25rem;
-      }
-
-      .profile-img {
-        max-width: 150px;
-      }
-
-      /* Tighten timeline columns so content keeps room on small screens */
-      .timeline-item {
-        margin-bottom: 30px;
-      }
-
-      .timeline-date {
-        width: 75px;
-        padding-right: 10px;
-        font-size: 0.8rem;
-      }
-
-      .timeline-logo-container {
-        width: 40px;
-        margin-right: 12px;
-      }
-
-      .timeline-logo {
-        width: 40px;
-        height: 40px;
-      }
-
-      #music-section iframe {
-        width: 100%;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .timeline-date {
-        width: 55px;
-        font-size: 0.72rem;
-      }
-
-      .timeline-logo-container {
-        margin-right: 8px;
-      }
-    }
-  </style>
+  <link href="assets/css/site.css" rel="stylesheet">
 </head>
 
 <body>
 
-  <div class="container">
+  <div class="wrap">
 
     <!-- Profile Header -->
-    <div class="row profile-header align-items-center">
-      <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-        <img src="assets/img/ChatGPT Image 28 mars 2026, 15_58_40.jpeg" alt="Hamza Boualam" class="profile-img bg-light">
-      </div>
-      <div class="col-md-8">
-        <h1 class="mb-2">Hamza Boualam</h1>
-        <p>
-          I like working on <strong>classification ml models & agentic architectures</strong>
+    <div class="profile">
+      <img src="assets/img/ChatGPT Image 28 mars 2026, 15_58_40.jpeg" alt="Hamza Boualam" class="profile-img">
+      <div class="profile-body">
+        <h1>Hamza Boualam</h1>
+        <p class="tagline">
+          I like working on <strong>classification ml models &amp; agentic architectures</strong>
         </p>
-
-        <div class="social-links mt-3">
+        <div class="social">
           <a href="mailto:boualamhamzaa+work@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-          <a href="https://github.com/BoualamHamza" title="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/hamza-boualam-5a2590244/" title="LinkedIn"><i
-              class="fab fa-linkedin"></i></a>
-          <a href="https://www.twitter.com/" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://github.com/BoualamHamza" target="_blank" rel="noopener" title="GitHub"><i
+              class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/hamza-boualam-5a2590244/" target="_blank" rel="noopener"
+            title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.twitter.com/" target="_blank" rel="noopener" title="Twitter"><i
+              class="fab fa-twitter"></i></a>
         </div>
       </div>
     </div>
 
-    <!-- Dynamic Content Sections -->
-    <!-- These will be populated by app.js from Firebase -->
+    <!-- News strip (no heading, sits directly under the header) -->
+    <div id="news-container">
+      <div class="loading-placeholder">Loading updates...</div>
+    </div>
 
-    <section id="news-section">
-      <h2 class="section-title">News & Updates</h2>
-      <div id="news-container">
-        <!-- Default content if no JS -->
-        <p><em>Loading updates...</em></p>
+    <!-- Dynamic content below is populated by app.js from Firebase -->
+
+    <section id="projects-section">
+      <h2 class="section-title">Projects</h2>
+      <div class="entry-list" id="projects-container">
+        <div class="loading-placeholder">Loading projects...</div>
+
+        <!-- Fallback static projects, kept only if the DB call fails -->
+        <div class="entry static-project">
+          <div class="entry-thumb thumb-ph" aria-hidden="true"></div>
+          <div class="entry-body">
+            <h5><a href="https://github.com/BoualamHamza?tab=repositories" target="_blank" rel="noopener">AI
+                Checkers</a></h5>
+            <div class="entry-text">A minimalist Checkers game implementing an unbeatable AI using the Minimax
+              algorithm.</div>
+          </div>
+          <div class="entry-date"></div>
+        </div>
+        <div class="entry static-project">
+          <div class="entry-thumb thumb-ph" aria-hidden="true"></div>
+          <div class="entry-body">
+            <h5><a href="https://github.com/BoualamHamza?tab=repositories" target="_blank" rel="noopener">Path
+                Finder</a></h5>
+            <div class="entry-text">A grid-based pathfinding visualizer demonstrating the A* Star Algorithm.</div>
+          </div>
+          <div class="entry-date"></div>
+        </div>
       </div>
+      <p class="section-foot">To see all my projects check out my <a href="https://github.com/BoualamHamza"
+          target="_blank" rel="noopener">GitHub</a>.</p>
     </section>
 
     <section id="experience-section">
       <h2 class="section-title">Bio / Parcours</h2>
-      <div id="experience-container">
-        <div class="loading-placeholder">Loading Experience...</div>
+      <div class="timeline" id="experience-container">
+        <div class="loading-placeholder">Loading experience...</div>
       </div>
-    </section>
-
-    <section id="projects-section">
-      <h2 class="section-title">Projects</h2>
-      <div class="row" id="projects-container">
-        <div class="col-12 loading-placeholder">Loading Projects...</div>
-
-        <!-- Fallback static projects (from old site) in case DB is empty -->
-        <!-- These will be cleared by JS if DB connection works -->
-        <div class="col-md-6 mb-4 static-project">
-          <div class="item-card h-100">
-            <h5><a href="https://github.com/BoualamHamza?tab=repositories">AI Checkers</a></h5>
-            <p>A minimalist Checkers game implementing an unbeatable AI using the Minimax algorithm.</p>
-          </div>
-        </div>
-        <div class="col-md-6 mb-4 static-project">
-          <div class="item-card h-100">
-            <h5><a href="https://github.com/BoualamHamza?tab=repositories">Path Finder</a></h5>
-            <p>A grid-based pathfinding visualizer demonstrating the A* Star Algorithm.</p>
-          </div>
-        </div>
-      </div>
-      <p class="text-center mt-3">To see all my projects check out my <a href="https://github.com/BoualamHamza"
-          target="_blank">GitHub</a>.</p>
     </section>
 
     <section id="talks-section">
-      <h2 class="section-title">Talks & Entrepreneurship</h2>
-      <div class="row" id="talks-container">
-        <div class="col-12 loading-placeholder">Loading Talks...</div>
+      <div class="section-head">
+        <h2 class="section-title">Side Quests</h2>
+        <p class="section-note">Talks, small products, writing, paint.</p>
+      </div>
+      <div class="filters" id="talks-filters" hidden></div>
+      <div class="entry-list" id="talks-container">
+        <div class="loading-placeholder">Loading side quests...</div>
       </div>
     </section>
 
     <!--
     <section id="papers-section">
-      <h2 class="section-title">Publications & Papers</h2>
-      <div id="papers-container">
-        <div class="loading-placeholder">Loading Publications...</div>
+      <h2 class="section-title">Publications &amp; Papers</h2>
+      <div class="entry-list" id="papers-container">
+        <div class="loading-placeholder">Loading publications...</div>
       </div>
     </section>
     -->
 
     <section id="music-section">
       <h2 class="section-title">My Jam</h2>
-      <iframe data-testid="embed-iframe" style="border-radius:12px"
-        src="https://open.spotify.com/embed/playlist/7t4nqSykYy2QBsd4cWwZ5d?utm_source=generator" width="80%"
-        height="152" frameBorder="0" allowfullscreen=""
+      <iframe data-testid="embed-iframe"
+        src="https://open.spotify.com/embed/playlist/7t4nqSykYy2QBsd4cWwZ5d?utm_source=generator" height="152"
+        frameBorder="0" allowfullscreen=""
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </section>
 
-    <footer class="mt-5 text-center text-muted small">
+    <footer>
       <p>&copy;
         <script>document.write(new Date().getFullYear())</script> Hamza Boualam. All rights reserved.
       </p>
