@@ -5,6 +5,7 @@ import { db, auth, storage, provider, collection, addDoc, getDocs, doc, updateDo
 // Update this list with your own email(s). This is a client-side check;
 // you MUST also enforce this in your Firebase Security Rules for real security.
 const ALLOWED_ADMINS = [
+    "hamzabm48@gmail.com",
     "boualamhamzaa@gmail.com",
     "boualamhamzaa+work@gmail.com"
 ];
@@ -65,6 +66,46 @@ document.getElementById('btn-logout').addEventListener('click', () => {
     signOut(auth);
 });
 
+// --- Side Quests: fields adapt to the chosen category ---
+// Categories whose items are written pieces and so get an article body.
+const ARTICLE_CATEGORIES = ['writing'];
+
+function updateQuestFields() {
+    const form = document.getElementById('talks-form');
+    if (!form) return;
+
+    const category = (form.elements['category'].value || '').trim().toLowerCase();
+    const bodyInput = form.elements['body'];
+    // Always reveal the body on an item that already has one, whatever its category
+    const isArticle = ARTICLE_CATEGORIES.includes(category) ||
+        (bodyInput && bodyInput.value.trim() !== '');
+
+    const bodyBlock = form.querySelector('[data-when="article"]');
+    if (bodyBlock) bodyBlock.classList.toggle('d-none', !isArticle);
+
+    const label = form.querySelector('[data-role="link-label"]');
+    const input = form.querySelector('[data-role="link-input"]');
+    if (label && input) {
+        if (category === 'talks') {
+            label.textContent = 'Video link';
+            input.placeholder = 'e.g. YouTube URL';
+        } else if (isArticle) {
+            label.textContent = 'External link (optional \u2014 leave empty to use the article page)';
+            input.placeholder = 'https://...';
+        } else {
+            label.textContent = 'Link';
+            input.placeholder = 'https://...';
+        }
+    }
+}
+
+const questCategoryInput = document.querySelector('#talks-form [name="category"]');
+if (questCategoryInput) {
+    questCategoryInput.addEventListener('input', updateQuestFields);
+    questCategoryInput.addEventListener('change', updateQuestFields);
+}
+updateQuestFields();
+
 // --- Tab Switching ---
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
@@ -119,8 +160,14 @@ async function loadCollectionData(collectionName) {
         const items = [];
         querySnapshot.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
 
-        // Client-side sort if date exists (Newest first)
+        // Sort the way the site does: manual order first, then newest first
+        const orderOf = (i) => {
+            const n = Number(i.order);
+            return Number.isFinite(n) ? n : Number.MAX_SAFE_INTEGER;
+        };
         items.sort((a, b) => {
+            const byOrder = orderOf(a) - orderOf(b);
+            if (byOrder !== 0) return byOrder;
             if (a.date && b.date) return new Date(b.date) - new Date(a.date);
             if (a.year && b.year) return b.year - a.year; // for papers perhaps
             return 0;
@@ -145,6 +192,24 @@ async function loadCollectionData(collectionName) {
                 dateSmall.className = 'text-muted';
                 dateSmall.textContent = ` (${item.date})`;
                 textDiv.appendChild(dateSmall);
+            }
+            if (item.category) {
+                const catSmall = document.createElement('small');
+                catSmall.className = 'text-muted';
+                catSmall.textContent = ` \u00b7 ${item.category}`;
+                textDiv.appendChild(catSmall);
+            }
+            if (item.body && String(item.body).trim()) {
+                const art = document.createElement('span');
+                art.className = 'badge bg-info text-dark ms-2';
+                art.textContent = 'article';
+                textDiv.appendChild(art);
+            }
+            if (item.visible === false) {
+                const hidden = document.createElement('span');
+                hidden.className = 'badge bg-secondary ms-2';
+                hidden.textContent = 'hidden';
+                textDiv.appendChild(hidden);
             }
 
             const btnDiv = document.createElement('div');
@@ -198,10 +263,12 @@ function editItem(id, collectionName, items) {
     // Populate Form
     form.reset();
     Object.keys(item).forEach(key => {
-        if (form.elements[key]) {
-            if (form.elements[key].type !== 'file') {
-                form.elements[key].value = item[key];
-            }
+        const field = form.elements[key];
+        if (!field) return;
+        if (field.type === 'checkbox') {
+            field.checked = item[key] !== false;
+        } else if (field.type !== 'file') {
+            field.value = item[key];
         }
     });
 
@@ -218,6 +285,8 @@ function editItem(id, collectionName, items) {
     }
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.innerText = "Update Item";
+
+    if (collectionName === 'talks') updateQuestFields();
 
     // Scroll to form
     form.scrollIntoView({ behavior: 'smooth' });
@@ -242,6 +311,7 @@ function resetFormState(collectionName) {
 
     form.reset();
     form.elements['docId'].value = ""; // Clear ID
+    if (collectionName === 'talks') updateQuestFields();
 
     // Reset Buttons
     const cancelBtn = document.getElementById(`btn-cancel-${collectionName}`);
@@ -279,6 +349,12 @@ async function handleFormSubmit(event, collectionName) {
     if (data.order) {
         data.order = parseInt(data.order, 10);
     }
+
+    // An unchecked checkbox is omitted from FormData entirely, so an update
+    // would silently keep the old value. Write every checkbox explicitly.
+    form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        data[cb.name] = cb.checked;
+    });
 
     const docId = data.docId; // Get ID if editing
     delete data.docId; // Don't save ID in the doc data
